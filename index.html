@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria de Propriedade Intelectual (IP Audit) - IHG</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .module-header {
+            background: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+        .options-col {
+            min-width: 180px;
+            text-align: center;
+        }
+        .action-col input {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .radio-group label {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        .btn-calcular {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-calcular:hover {
+            background-color: #2ecc71;
+        }
+        #resultado-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            color: #fff;
+            text-align: center;
+        }
+        .nivel-1 { background-color: #e74c3c; } /* Vermelho */
+        .nivel-2 { background-color: #e67e22; } /* Laranja */
+        .nivel-3 { background-color: #f1c40f; color: #333 !important; } /* Amarelo */
+        .nivel-4 { background-color: #2ecc71; } /* Verde */
+        
+        .score-display {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .diagnostic-box {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Checklist Modular de Auditoria de PI (IHG)</h1>
+    <p>Preencha os módulos abaixo marcando a situação atual da instituição. Ao final, clique em "Calcular IPR Score" para visualizar a maturidade da governança.</p>
+    
+    <form id="auditForm">
+        <h2 class="module-header">Módulo A: Entrada de Acervo e Direitos Autorais</h2>
+        <table>
+            <tr>
+                <th>Pergunta de Auditoria</th>
+                <th class="options-col">Avaliação</th>
+                <th>Ação Necessária (Opcional)</th>
+            </tr>
+            <tbody id="moduloA">
+                <tr>
+                    <td>A1. O IHG exige a assinatura de um "Termo de Doação e Cessão de Direitos" formal de todas as famílias/pessoas físicas antes de aceitar acervos?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="A1" value="2" required> Sim</label>
+                        <label><input type="radio" name="A1" value="1"> Parcial</label>
+                        <label><input type="radio" name="A1" value="0"> Não</label>
+                        <label><input type="radio" name="A1" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>A2. Existe um procedimento documentado para a "busca de boa-fé" por autores de obras órfãs antes de sua digitalização?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="A2" value="2" required> Sim</label>
+                        <label><input type="radio" name="A2" value="1"> Parcial</label>
+                        <label><input type="radio" name="A2" value="0"> Não</label>
+                        <label><input type="radio" name="A2" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>A3. As publicações próprias do Instituto estão formalmente mapeadas e protegidas por direitos autorais?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="A3" value="2" required> Sim</label>
+                        <label><input type="radio" name="A3" value="1"> Parcial</label>
+                        <label><input type="radio" name="A3" value="0"> Não</label>
+                        <label><input type="radio" name="A3" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>A4. As pesquisas e restaurações em andamento possuem "Cadernos de Pesquisa" rastreáveis retidos como propriedade do Instituto?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="A4" value="2" required> Sim</label>
+                        <label><input type="radio" name="A4" value="1"> Parcial</label>
+                        <label><input type="radio" name="A4" value="0"> Não</label>
+                        <label><input type="radio" name="A4" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="module-header">Módulo B: Capital Humano e Relacional</h2>
+        <table>
+            <tr>
+                <th>Pergunta de Auditoria</th>
+                <th class="options-col">Avaliação</th>
+                <th>Ação Necessária (Opcional)</th>
+            </tr>
+            <tbody id="moduloB">
+                <tr>
+                    <td>B1. Voluntários, estagiários e prestadores assinam contratos transferindo direitos autorais de suas produções ao IHG (Work for Hire)?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="B1" value="2" required> Sim</label>
+                        <label><input type="radio" name="B1" value="1"> Parcial</label>
+                        <label><input type="radio" name="B1" value="0"> Não</label>
+                        <label><input type="radio" name="B1" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>B2. O Instituto exige assinatura de Acordos de Não-Divulgação (NDAs) por alunos e visitantes antes do acesso a arquivos raros?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="B2" value="2" required> Sim</label>
+                        <label><input type="radio" name="B2" value="1"> Parcial</label>
+                        <label><input type="radio" name="B2" value="0"> Não</label>
+                        <label><input type="radio" name="B2" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>B3. O IHG assina NDAs preventivos antes de compartilhar dados internos com universidades ou patrocinadores?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="B3" value="2" required> Sim</label>
+                        <label><input type="radio" name="B3" value="1"> Parcial</label>
+                        <label><input type="radio" name="B3" value="0"> Não</label>
+                        <label><input type="radio" name="B3" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>B4. Existe um núcleo centralizado para gerir contratos e parcerias, evitando que fiquem dispersos entre diretores?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="B4" value="2" required> Sim</label>
+                        <label><input type="radio" name="B4" value="1"> Parcial</label>
+                        <label><input type="radio" name="B4" value="0"> Não</label>
+                        <label><input type="radio" name="B4" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="module-header">Módulo C: Conhecimento Tácito e Segredos Operacionais</h2>
+        <table>
+            <tr>
+                <th>Pergunta de Auditoria</th>
+                <th class="options-col">Avaliação</th>
+                <th>Ação Necessária (Opcional)</th>
+            </tr>
+            <tbody id="moduloC">
+                <tr>
+                    <td>C1. O IHG possui um inventário dos seus "Segredos Operacionais" (técnicas próprias, listas de doadores)?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="C1" value="2" required> Sim</label>
+                        <label><input type="radio" name="C1" value="1"> Parcial</label>
+                        <label><input type="radio" name="C1" value="0"> Não</label>
+                        <label><input type="radio" name="C1" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>C2. Existem restrições claras de acesso a esses documentos confidenciais?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="C2" value="2" required> Sim</label>
+                        <label><input type="radio" name="C2" value="1"> Parcial</label>
+                        <label><input type="radio" name="C2" value="0"> Não</label>
+                        <label><input type="radio" name="C2" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>C3. O conhecimento operacional está documentado em manuais, evitando perda se um gestor sair?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="C3" value="2" required> Sim</label>
+                        <label><input type="radio" name="C3" value="1"> Parcial</label>
+                        <label><input type="radio" name="C3" value="0"> Não</label>
+                        <label><input type="radio" name="C3" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>C4. É realizada "entrevista de desligamento" exigindo a devolução de senhas e dados sensíveis?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="C4" value="2" required> Sim</label>
+                        <label><input type="radio" name="C4" value="1"> Parcial</label>
+                        <label><input type="radio" name="C4" value="0"> Não</label>
+                        <label><input type="radio" name="C4" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="module-header">Módulo D: Infraestrutura de TI e Retenção Documental</h2>
+        <table>
+            <tr>
+                <th>Pergunta de Auditoria</th>
+                <th class="options-col">Avaliação</th>
+                <th>Ação Necessária (Opcional)</th>
+            </tr>
+            <tbody id="moduloD">
+                <tr>
+                    <td>D1. O Instituto possui Política de Retenção de Documentos (definindo o que guardar permanentemente e o que descartar)?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="D1" value="2" required> Sim</label>
+                        <label><input type="radio" name="D1" value="1"> Parcial</label>
+                        <label><input type="radio" name="D1" value="0"> Não</label>
+                        <label><input type="radio" name="D1" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>D2. As licenças dos softwares utilizados são de uso regular/comercial (sem pirataria)?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="D2" value="2" required> Sim</label>
+                        <label><input type="radio" name="D2" value="1"> Parcial</label>
+                        <label><input type="radio" name="D2" value="0"> Não</label>
+                        <label><input type="radio" name="D2" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+                <tr>
+                    <td>D3. Os domínios de internet e servidores em nuvem estão registrados no CNPJ do Instituto (e não em CPF de terceiros)?</td>
+                    <td class="options-col radio-group">
+                        <label><input type="radio" name="D3" value="2" required> Sim</label>
+                        <label><input type="radio" name="D3" value="1"> Parcial</label>
+                        <label><input type="radio" name="D3" value="0"> Não</label>
+                        <label><input type="radio" name="D3" value="NA"> N/A</label>
+                    </td>
+                    <td class="action-col"><input type="text" placeholder="Ação..."></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn-calcular">Calcular IPR Score</button>
+    </form>
+
+    <div id="resultado-container">
+        <h2 style="color: inherit;">Diagnóstico de Maturidade Institucional</h2>
+        <div class="score-display"><span id="scorePercentage">0</span>%</div>
+        <h3 id="nivelText">Nível X</h3>
+        
+        <div class="diagnostic-box">
+            <p><strong>Diagnóstico:</strong> <span id="diagText">...</span></p>
+            <p><strong>Ação Prioritária:</strong> <span id="acaoText">...</span></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('auditForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Coleta todos os inputs de rádio que estão checados
+        const formData = new FormData(this);
+        let earnedPoints = 0;
+        let maxPoints = 0;
+
+        // Itera sobre as respostas
+        for(let value of formData.values()) {
+            if(value === "NA") {
+                // Se for N/A, não soma pontos nem na base de cálculo
+                continue;
+            }
+            
+            let pts = parseInt(value);
+            earnedPoints += pts;
+            maxPoints += 2; // Cada questão vale no máximo 2 pontos
+        }
+
+        // Calcula porcentagem
+        let percentage = 0;
+        if(maxPoints > 0) {
+            percentage = Math.round((earnedPoints / maxPoints) * 100);
+        }
+
+        // Determina o Nível
+        let nivel, diag, acao, cssClass;
+
+        if (percentage <= 30) {
+            nivel = "Nível 1: Crítico (Ad Hoc)";
+            diag = "Vulnerabilidade extrema. Atuação informal e reativa. Alto risco de perda de direitos de voluntários e processos por digitalização de obras órfãs.";
+            acao = "Estancar passivos jurídicos implementando imediatamente modelos padrão de Termo de Doação, Cessão de Direitos e Acordos de Não-Divulgação (NDAs).";
+            cssClass = "nivel-1";
+        } else if (percentage <= 60) {
+            nivel = "Nível 2: Intermediário (Reativo)";
+            diag = "Governança descentralizada. Os contratos e termos de parceria estão espalhados. Há risco severo de perda de conhecimento tácito se um gestor-chave sair.";
+            acao = "Centralizar e documentar a guarda de contratos do Capital Relacional e iniciar a redação de manuais operacionais.";
+            cssClass = "nivel-2";
+        } else if (percentage <= 85) {
+            nivel = "Nível 3: Estratégico (Proativo)";
+            diag = "Cultura de proteção estabelecida. A due diligence na entrada de acervos já é rotina. Os riscos residuais encontram-se na infraestrutura de TI e retenção de documentos.";
+            acao = "Integrar o controle físico e digital, formalizando uma Política de Retenção de Documentos Institucional e auditando licenças de software.";
+            cssClass = "nivel-3";
+        } else {
+            nivel = "Nível 4: Excelência (Melhoria Contínua)";
+            diag = "Governança otimizada. A auditoria de PI integra o Planejamento Estratégico. Os Capitais Humano, Relacional e Organizacional estão juridicamente seguros.";
+            acao = "Manter o Benchmarking e utilizar o score anual como vitrine de segurança para atrair novos editais e patrocinadores.";
+            cssClass = "nivel-4";
+        }
+
+        // Atualiza UI
+        const resContainer = document.getElementById('resultado-container');
+        resContainer.className = cssClass; // Remove classes antigas e adiciona a nova
+        resContainer.style.display = 'block';
+        
+        document.getElementById('scorePercentage').innerText = percentage;
+        document.getElementById('nivelText').innerText = nivel;
+        document.getElementById('diagText').innerText = diag;
+        document.getElementById('acaoText').innerText = acao;
+
+        // Rola a tela suavemente para o resultado
+        resContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
