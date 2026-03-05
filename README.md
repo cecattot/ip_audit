@@ -1,0 +1,1 @@
+Contém todos os Módulos do checklist, os campos para preencher o plano de ação e a lógica em JavaScript para calcular automaticamente o IPR Score (Régua de Maturidade), descontando as opções "N/A" da pontuação total
